@@ -179,6 +179,13 @@ Fine-tuning significantly improved performance on both tasks:
 
 
 ## Contributions:
+| Name             | Roll No.  | Contribution                                                                                  |
+| ---------------- | --------- | --------------------------------------------------------------------------------------------- |
+| Husain Malwat    | 21110117 | Worked on classification task (SST-2), calculated accuracy, precision, recall, and F1 scores. Assisted with parameter calculations, performance analysis and subjective questions. |
+| Amey Rangari     | 21110177 | Worked on Question-Answering task (SQuAD), calculated squad_v2, F1, METEOR, BLEU, ROUGE, and exact-match scores. Assisted in analyzing model performance. |
+| Netram Choudhary | 21110138 | Worked on classification task (SST-2), assisted with metrics calculation, and analyzed model performance. |
+| Vinay Goud       | 21110125 | Worked on Question-Answering task (SQuAD), calculated squad_v2, F1, METEOR, BLEU, ROUGE, and exact-match scores. Contributed to subjective analysis and performance comparison. |
+| Dhruv Patel      | 23210035 | Worked on Question-Answering task (SQuAD), calculated squad_v2, F1, METEOR, BLEU, ROUGE, and exact-match scores. Contributed to model parameter analysis. |
 
 ---
 
