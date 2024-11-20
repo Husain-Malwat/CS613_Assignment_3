@@ -13,7 +13,7 @@ This repository contains the implementation of fine-tuning pre-trained language 
 5. [Results](#results)
 6. [Model Details](#model-details)
 7. [Key Insights](#key-insights)
-8. [How to Use](#how-to-use)
+8. [Contributions](#Contributions)
 9. [Acknowledgments](#acknowledgments)
 
 ---
@@ -109,16 +109,76 @@ Fine-tuning significantly improved performance on both tasks:
 
 ## **Key Insights**
 
-1. **Metrics Analysis:**
+ <!--1. **Metrics Analysis:**
 
-   <!-- - Higher scores post fine-tuning highlight the adaptability of large models to task-specific requirements.
-   - Zero-shot performance, while decent, lags due to lack of task-specific contextual understanding. -->
+   - Higher scores post fine-tuning highlight the adaptability of large models to task-specific requirements.
+   - Zero-shot performance, while decent, lags due to lack of task-specific contextual understanding. 
 2. **Parameter Behavior:**
 
-   <!-- - The number of parameters remains unchanged after fine-tuning as weights are adjusted, not the architecture. -->
+    - The number of parameters remains unchanged after fine-tuning as weights are adjusted, not the architecture. 
 3. **Zero-shot vs. Fine-tuned:**
 
    - Fine-tuning yields better task-specific generalization and contextual accuracy.
+    -->
+
+
+   ### 2. **Understanding Parameters Between Pretraining and Fine-tuning (5 pts)**
+
+   #### **Model Parameters Without Fine-tuning (Pretraining):**
+   - During pretraining, models like **LLaMA-3.2** use billions of parameters (e.g., 1B or more), capturing general linguistic patterns and contextual knowledge from large-scale diverse corpora.
+   - Without fine-tuning, the model relies solely on these pretrained weights, which are not adapted to specific tasks such as sentiment analysis.
+   - **Consequently:**
+   - Many predictions are ambiguous, and the model often fails to map task-specific labels like "Positive" or "Negative," leading to the frequent assignment of a "None" label.
+
+   #### **Model Parameters After Fine-tuning:**
+   - Fine-tuning using **LoRA (Low-Rank Adaptation)** focuses on optimizing a **subset of the model's parameters** (e.g., `gate_proj`, `q_proj`, `v_proj`, etc.) that are most relevant to the downstream task.
+   - Instead of updating all the pretrained parameters, LoRA introduces trainable **rank-decomposed matrices** into specific layers, leaving the majority of the original model parameters unchanged. This reduces the trainable parameters by **up to 90%**, making the process computationally efficient.
+   - **After fine-tuning:**
+   - The model better distinguishes between task-specific labels (e.g., Positive or Negative) by aligning predictions with the distribution of the fine-tuning dataset.
+   - Predictions are task-aware and much more consistent compared to the pretrained model.
+
+   #### **Key Differences in Parameters:**
+   1. **Number of Parameters:**
+      - **Pretraining:** The full model's parameters (e.g., billions in LLaMA-3.2) are used, but they are fixed and not task-optimized.
+      - **Fine-tuning:** Only a subset of parameters (modules targeted by LoRA) is trained, while the rest remain frozen. This drastically reduces the number of trainable parameters. For instance:
+      - A 1B-parameter model may only fine-tune **a few million parameters.**
+
+   2. **Parameter Changes:**
+      - **Before Fine-tuning:** All parameters are pretrained and task-agnostic.
+      - **After Fine-tuning:** Parameters in the targeted modules (like `gate_proj`, `q_proj`) are updated, while others remain the same.
+      - **Total Model Size:** Remains unchanged because fine-tuning modifies only a small fraction of parameters without increasing the model's total parameter count.
+
+   3. **Prediction Accuracy:**
+      - The fine-tuned model performs significantly better in task-specific predictions, adapting pretrained knowledge to the sentiment analysis task and reducing misclassifications like "None."
+
+   ---
+
+   ### 3. **Performance Differences: Zero-shot vs Fine-tuned Models (5 pts)**
+
+   #### **Zero-shot Model:**
+   - In the zero-shot setting, the model heavily relies on its pretraining without any task-specific fine-tuning.
+   - **Key Observations:**
+   - For nearly **50% of the samples**, the model failed to predict either a positive or negative sentiment and instead defaulted to a "None" label.
+   - This behavior is due to:
+      - The lack of task-specific adaptation, where the model is unsure about the label distribution and nuances in the sentiment task.
+      - Ambiguities in pretraining, where no direct mapping exists for many sentiment scenarios, especially for domain-specific or edge cases.
+
+   #### **Fine-tuned Model:**
+   - After fine-tuning, these "None" cases are reduced to a **negligible level.**
+   - **Key Improvements:**
+   - The model effectively learns to distinguish between positive and negative sentiments by adapting to the labeled dataset, aligning its predictions with task-specific requirements.
+   - Fine-tuning enables:
+      - Better handling of ambiguous cases through exposure to task-relevant data.
+      - Improved classification boundaries for sentiment, ensuring a more robust prediction mechanism.
+
+   #### **Rationale:**
+   - The stark contrast between the zero-shot and fine-tuned model highlights the importance of **task-specific fine-tuning.**
+   - By aligning the model's parameters with the distribution and nuances of the sentiment dataset:
+   - Fine-tuning minimizes the prediction of "None" labels.
+   - It ensures higher accuracy and usability in real-world applications.
+
+
+## Contributions:
 
 ---
 
