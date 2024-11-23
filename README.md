@@ -64,7 +64,7 @@ Key objectives include:
 3. **Metrics Calculated:**
 
    - **SST-2:** Accuracy, Precision, Recall, F1.
-   - **SQuAD v2:** Exact Match (EM), F1, BLEU, METEOR, ROUGE.
+   - **SQuAD:** Squad_v2, Exact Match (EM), F1, BLEU, METEOR, ROUGE.
 
 ---
 
@@ -77,7 +77,7 @@ Key objectives include:
 | Zero-shot  | 0.3598099621408953 | 0.7842165895859535 | 0.3598099621408953 | 0.4854944203120602 |
 | Fine-tuned | 0.9441763788879816 | 0.944726401331474  | 0.9441763788879816 | 0.9442583244134678 |
 
-### **Task 2: SQuAD v2 (Question-Answering)**
+### **Task 2: SQuAD  (Question-Answering)**
 
 | Model      | Exact Match (EM) | BLEU     | METEOR  | ROUGE-1 | ROUGE-2 |	ROUGE-L |
 | ---------- | --------          | --------| ------- | -------- |------- |------- |
